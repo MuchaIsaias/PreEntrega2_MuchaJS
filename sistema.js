@@ -2,12 +2,11 @@
 
 
 function movimientos(inicio,final,colorJugador) {
-    mostrarTablero()
     let inicioVer = 8 - parseInt(inicio[1])
     let inicioHor = inicio.charCodeAt(0) - "a".charCodeAt(0);
     let finalVer = 8 - parseInt(final[1])
     let finalHor = final.charCodeAt(0) - "a".charCodeAt(0);
-    
+    let color=colorJugador
     //para que el Peon se mueva dos haci arriba en la misma fila
     if ((tablero[inicioVer][inicioHor]==="p.B" && inicioHor===finalHor && finalVer>=inicioVer -2) || (tablero[inicioVer][inicioHor]==="p.N" && inicioHor===finalHor && finalVer>=inicioVer - 2)) {
         if (hayPiezasEnElCamino(inicioVer, inicioHor, finalVer, finalHor)) {
@@ -81,12 +80,12 @@ function movimientos(inicio,final,colorJugador) {
         mostrarTablero()
     };
     //si uno de los dos rey esta en jaque y jaque mate
-    if (estaEnJaque(colorJugador)) {
-        alert('¡Jaque!');
-        if (estaEnJaqueMate(colorJugador)) {
+    if (estaEnJaque(color)) {
+        alert("¡Jaque!");
+        if (estaEnJaqueMate(color)) {
             alert('¡Jaque mate!');
-            if (estaEnJaqueMate(colorJugador)==Jugador2.color) {
-                alert("El Ganador Son Los "+Jugador1.color)
+            if (estaEnJaqueMate(color)==Jugador1.color) {
+                alert("El Ganador Son Los "+Jugador2.color)
                 if (!confirm("Quieren Jugar otra Prtida")) {
                     fleg= false;
                 }else{
@@ -102,7 +101,7 @@ function movimientos(inicio,final,colorJugador) {
                     ];
                 }
             }else{
-                alert("El Ganador Son Los "+Jugador2.color)
+                alert("El Ganador Son Los "+Jugador1.color)
                 if (!confirm("Quieren Jugar otra Prtida")) {
                     fleg= false;
                 }else{

@@ -28,8 +28,16 @@ function mostrarTablero() {
         // cada ves que recorre una linea en el tablero separa
         StringTablero += "\n"+"                    ";
     };
-    // condicion para ganar 
-    alert(StringTablero)
+    if (tablero[i][j]!=="R.N") {
+        alert("El jugador2 ya no tiene a su Rey, Ganador jugador 1 ")
+        fleg=false
+    }else if(tablero[i][j]!=="R.B"){
+        alert("El jugador1 ya no tiene a su Rey, Ganador jugador 2 ")
+        fleg=false
+    }else{
+        alert(StringTablero)
+    }
+    
 };
 
 function nombres(nom) {
@@ -80,34 +88,16 @@ function hayPiezasEnElCamino(inicioVer, inicioHor, finalVer, finalHor) {
 function obtenerCoordenadasRey(colorRey) {
     // Implementar lógica para obtener las coordenadas del rey del color especificado
     // ...
-    let comlumnas=["a","b","c","d","e","f","g","h"]
+    let comlumnas=["A","B","V","D","E","F","G","H"]
     for (let i = 0; i < tablero.length; i++) {
         for (let j = 0; j < tablero[i].length; j++) {
-            if (tablero[i][j] ==="R."+ colorRey) {
-                let columna =comlumnas[j]
-                let filas = i
-                let posicion = columna + filas
-                let fila = 8 - parseInt(posicion[1])
-                return [columna,fila ]
+            if (tablero[i][j] === "R." + colorRey) {
+                let columna = comlumnas[j];
+                let fila = 8 - i;  // Corregir la obtención de la fila
+                return [fila,columna];
             }
         }
     }
-}
-
-function hayPiezasEnElCamino(inicioVer, inicioHor, finalVer, finalHor) {
-    // Determina la dirección del movimiento
-    let direccionVertical = Math.sign(finalVer - inicioVer);
-    let direccionHorizontal = Math.sign(finalHor - inicioHor);
-    // Verifica si hay alguna pieza en el camino
-    for (let i = 1; i < Math.max(Math.abs(finalVer - inicioVer), Math.abs(finalHor - inicioHor)); i++) {
-        let filaActual = inicioVer + i * direccionVertical;
-        let columnaActual = inicioHor + i * direccionHorizontal;
-      // Verifica si hay una pieza en la posición actual del camino
-        if (tablero[filaActual][columnaActual] !== "   ") {
-            return true; // Hay una pieza en el camino
-        }
-    }
-    return false; // No hay piezas en el camino
 }
 
 function piezaAmenazaRey(filaRey, columnaRey, colorRey) {
@@ -115,9 +105,10 @@ function piezaAmenazaRey(filaRey, columnaRey, colorRey) {
     for (let i = 0; i < tablero.length; i++) {
         for (let j = 0; j < tablero[i].length; j++) {
             let pieza = tablero[i][j];
-            if (pieza !== "   " && obtenerColorPieza(pieza) !== colorRey) {
+            if (pieza !== "   " && ("B" !== colorRey || "N" !== colorRey)) {
                 // Verifica si la pieza puede amenazar al rey
                 if (puedePiezaAmenazarRey(i, j, filaRey, columnaRey)) {
+                    alert("¡Jaque!");
                     return true; // El rey está amenazado por al menos una pieza enemiga
                 }
             }
@@ -125,12 +116,7 @@ function piezaAmenazaRey(filaRey, columnaRey, colorRey) {
     }
     return false; // El rey no está amenazado
 }
-
 // Función auxiliar para obtener el color de una pieza
-function obtenerColorPieza(pieza) {
-    return pieza[1]; // Suponiendo que la segunda letra de la representación de la pieza indica el color (p.ej., "p.B" o "p.N")
-}
-
 function puedePiezaAmenazarRey(filaPieza, columnaPieza, filaRey, columnaRey) {
     let pieza = tablero[filaPieza][columnaPieza];
 
@@ -148,9 +134,8 @@ function puedePiezaAmenazarRey(filaPieza, columnaPieza, filaRey, columnaRey) {
     if (pieza.includes("C.N")||pieza.includes("C.B")) {
         return (Math.abs(filaPieza - filaRey) === 2 && Math.abs(columnaPieza - columnaRey) === 1) || (Math.abs(columnaPieza - columnaRey) === 1 && Math.abs(filaPieza - filaRey) === 2);
     }
-
-    if (pieza.includes("D.M")||pieza.includes("D.M")) {
-        
+    if (pieza.includes("D.M")||pieza.includes("D.B")) {
+        return (filaPieza === filaRey ||columnaPieza === columnaRey ||Math.abs(filaPieza - filaRey) === Math.abs(columnaPieza.charCodeAt(0) - columnaRey.charCodeAt(0)));
     }
     if (pieza.includes('R.N') || pieza.includes('R.B')) {
         return Math.abs(filaPieza - filaRey) <= 1 && Math.abs(columnaPieza - columnaRey) <= 1;
@@ -163,8 +148,11 @@ function estaEnJaque(color) {
     // Obtener las coordenadas del rey del color especificado
     let coordenadasRey = obtenerCoordenadasRey(color);
     // Verificar si alguna pieza enemiga amenaza al rey
-    let amenaza = piezaAmenazaRey(coordenadasRey[0], coordenadasRey[1], color);
-    return amenaza;
+    if (piezaAmenazaRey(coordenadasRey[0], coordenadasRey[1], color)) {
+        return true;
+    }else{
+        return false
+    }
 }
 
 function estaEnJaqueMate(color) {
