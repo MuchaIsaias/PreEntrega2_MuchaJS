@@ -124,14 +124,6 @@ function movimientos(inicio,final,colorJugador) {
 };
 
 
-class Jugador{
-    constructor(Nombre,color){
-        this.Nombre=Nombre
-        this.color=color
-    };
-};
-
-
 
 
 

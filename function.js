@@ -1,3 +1,10 @@
+class Jugador{
+    constructor(Nombre,color){
+        this.Nombre=Nombre
+        this.color=color
+    };
+};
+
 //Tablero
 let tablero=[
     ["T.N","C.N","A.N","D.N","R.N","A.N","C.N","T.N"],
