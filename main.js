@@ -4,7 +4,7 @@ alert("Bienvenido al Simluador de Ajedrez")
 alert("Por favor Introdusca el Nombre de los 2 Jugadores")
 alert("Y Tener en cuenta que el Jugador 1 va a hacer las Fichas Blancas y el 2 va a hacer las Negras")
 
-let Jugador1= new Jugador(nombres("Por favo Introdusca su nombre jugador1 "), "B");
+let Jugador1= new Jugador(nombres("Por favor Introdusca su nombre jugador1 "), "B");
 
 alert("Bienvenido " + Jugador1.Nombre);
 

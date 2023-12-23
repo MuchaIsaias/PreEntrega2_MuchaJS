@@ -28,16 +28,7 @@ function mostrarTablero() {
         // cada ves que recorre una linea en el tablero separa
         StringTablero += "\n"+"                    ";
     };
-    if (tablero[i][j]!=="R.N") {
-        alert("El jugador2 ya no tiene a su Rey, Ganador jugador 1 ")
-        fleg=false
-    }else if(tablero[i][j]!=="R.B"){
-        alert("El jugador1 ya no tiene a su Rey, Ganador jugador 2 ")
-        fleg=false
-    }else{
-        alert(StringTablero)
-    }
-    
+    alert(StringTablero);
 };
 
 function nombres(nom) {
