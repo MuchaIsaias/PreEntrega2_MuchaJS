@@ -18,18 +18,15 @@ let tablero=[
 ]; 
 
 function mostrarTablero() {
-    let StringTablero = "                  ";// cramos una variable que este vacia que contenga un string
-    // i reccore verticalmente en el tablero de 0 a 7
-    for (let i = 0; i < 8; i++) {
-        // j reccore horizontalmente en el tablero dependiendo donde este i, si i es 3 j se para en el 3 y recorre hacia abajo  de 0 a 7
-        for (let j = 0; j < 8; j++) {
-            StringTablero += tablero[i][j] + "  "; // juntamos la variables vacia con el array [i] [j] y le damos un espacio entre i=0 y i = 1
-        };
-        // cada ves que recorre una linea en el tablero separa
-        StringTablero += "\n"+"                    ";
-    };
-    alert(StringTablero);
-};
+    let stringTablero = "                  ";
+    tablero.forEach(row => {
+        row.forEach(piece => {
+            stringTablero += piece + "  ";
+        });
+        stringTablero += "\n" + "                    ";
+    });
+    alert(stringTablero);
+}
 
 function nombres(nom) {
     let jugador = prompt(nom)
